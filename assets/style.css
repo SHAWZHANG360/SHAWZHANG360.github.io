@@ -1,0 +1,356 @@
+/* ============================================================
+   张世羽 学术个人网站样式
+   设计参考 al-folio / minimal-light 的学术风格，纯静态实现。
+   主题色与暗色模式通过 CSS 变量控制，改动只需调整 :root 里的值。
+   ============================================================ */
+
+:root {
+  --accent: #1a5fb4;
+  --accent-soft: rgba(26, 95, 180, 0.10);
+  --bg: #ffffff;
+  --bg-soft: #f6f8fa;
+  --text: #24292f;
+  --text-soft: #57606a;
+  --border: #d8dee4;
+  --badge-q1: #1a7f37;
+  --badge-if: #9a6700;
+  --badge-award: #bc4c00;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="dark"] {
+  --accent: #6cb2ff;
+  --accent-soft: rgba(108, 178, 255, 0.12);
+  --bg: #0d1117;
+  --bg-soft: #161b22;
+  --text: #e6edf3;
+  --text-soft: #9da7b3;
+  --border: #30363d;
+  --badge-q1: #3fb950;
+  --badge-if: #d4a72c;
+  --badge-award: #f0883e;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ---------- 语言切换：data-lang 控制 .zh / .en 的显隐 ---------- */
+html[data-lang="zh"] .en { display: none; }
+html[data-lang="en"] .zh { display: none; }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  transition: background 0.25s, color 0.25s;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ======================= 顶部导航 ======================= */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+.nav-name:hover { text-decoration: none; color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 0.9rem;
+  flex: 1;
+  overflow-x: auto;
+}
+.nav-links a {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+.nav-actions { display: flex; gap: 0.4rem; }
+
+.nav-actions button {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color 0.15s;
+}
+.nav-actions button:hover { border-color: var(--accent); }
+
+/* 主题按钮：亮色模式显示月亮，暗色模式显示太阳 */
+html[data-theme="dark"] .icon-moon { display: none; }
+html:not([data-theme="dark"]) .icon-sun { display: none; }
+
+/* ======================= 版心 ======================= */
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.2rem 3rem;
+}
+
+section { margin-bottom: 3rem; }
+
+h2 {
+  font-size: 1.45rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  padding-bottom: 0.15rem;
+  margin: 0 0 1.1rem;
+}
+
+/* ======================= Hero ======================= */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2.2rem;
+}
+
+.hero-text { flex: 1; }
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  color: var(--text-soft);
+  margin: 0 0 0.9rem;
+  font-size: 1.02rem;
+}
+
+.contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+.soft-link {
+  color: var(--text-soft);
+  border-bottom: 1px dashed var(--border);
+}
+.soft-link:hover { color: var(--accent); text-decoration: none; }
+
+.hero-avatar { flex-shrink: 0; }
+
+.avatar-placeholder {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #2d9bd8);
+  color: #fff;
+  font-size: 3.2rem;
+  font-family: "Songti SC", "SimSun", serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+}
+
+.avatar-img {
+  width: 132px;
+  height: 132px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+/* ======================= 简介与研究方向 ======================= */
+.intro { margin: 0 0 1.4rem; }
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.9rem;
+}
+
+.interest-card {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+.interest-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.98rem;
+  color: var(--accent);
+}
+.interest-card p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+/* ======================= News ======================= */
+.news-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.news-list li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.news-date {
+  flex-shrink: 0;
+  width: 4.6rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ======================= 论文列表 ======================= */
+.pub-note { color: var(--text-soft); font-size: 0.88rem; margin-top: -0.5rem; }
+
+.pub-group {
+  font-size: 1.08rem;
+  margin: 1.4rem 0 0.6rem;
+  color: var(--text);
+}
+
+.pub-list { padding-left: 1.4rem; margin: 0; }
+
+.pub-list li {
+  margin-bottom: 0.9rem;
+  padding-left: 0.2rem;
+}
+
+.pub-authors { display: block; font-size: 0.93rem; color: var(--text-soft); }
+.pub-title { display: block; font-weight: 600; }
+.pub-venue { display: block; font-size: 0.93rem; }
+
+.badges { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.25rem; }
+
+.badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  line-height: 1.5;
+}
+.badge.q1 { color: var(--badge-q1); }
+.badge.if { color: var(--badge-if); }
+.badge.cas { color: var(--accent); }
+.badge.award { color: var(--badge-award); background: color-mix(in srgb, var(--badge-award) 10%, transparent); }
+
+/* ======================= 科研项目 ======================= */
+.project {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.project-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.project-head h3 { margin: 0; font-size: 1.02rem; }
+
+.project-date, .service-date {
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.project-role {
+  color: var(--accent);
+  font-size: 0.88rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.project p:last-child { margin-bottom: 0; font-size: 0.93rem; }
+
+/* ======================= 奖项 ======================= */
+.award-list { list-style: none; padding: 0; margin: 0; }
+.award-list li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px dashed var(--border);
+}
+.award-year {
+  flex-shrink: 0;
+  width: 6.2rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ======================= 服务 / 教育 ======================= */
+.service-list, .edu-list { list-style: none; padding: 0; margin: 0; }
+.service-list li, .edu-list li { margin-bottom: 1rem; }
+
+.service-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.service-list p {
+  margin: 0.25rem 0 0;
+  font-size: 0.93rem;
+  color: var(--text-soft);
+}
+
+/* ======================= 页脚 ======================= */
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1.2rem;
+  color: var(--text-soft);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+/* ======================= 响应式 ======================= */
+@media (max-width: 640px) {
+  .hero { flex-direction: column-reverse; text-align: center; }
+  .contact-line { justify-content: center; }
+  .hero h1 { font-size: 1.8rem; }
+  .news-date { width: 4rem; }
+  .award-year { width: 5rem; }
+}
