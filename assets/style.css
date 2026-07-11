@@ -193,28 +193,13 @@ h2 {
 /* ======================= 简介与研究方向 ======================= */
 .intro { margin: 0 0 1.4rem; }
 
-.interest-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 0.9rem;
-}
-
-.interest-card {
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.9rem 1rem;
-}
-.interest-card h3 {
-  margin: 0 0 0.4rem;
-  font-size: 0.98rem;
-  color: var(--accent);
-}
-.interest-card p {
-  margin: 0;
-  font-size: 0.88rem;
-  color: var(--text-soft);
-}
+/* 研究方向:朴素列表,不做卡片 */
+.interest-lead { margin: 0 0 0.3rem; font-weight: 600; }
+.interest-list { margin: 0; padding-left: 1.4rem; }
+.interest-list li { margin-bottom: 0.35rem; }
+.interest-list li strong { font-weight: 600; }
+.interest-list li .zh:not(:first-child),
+.interest-list li .en:not(:first-child) { color: var(--text-soft); }
 
 /* ======================= News ======================= */
 .news-list {
@@ -271,14 +256,8 @@ h2 {
 .badge.cas { color: var(--accent); }
 .badge.award { color: var(--badge-award); background: color-mix(in srgb, var(--badge-award) 10%, transparent); }
 
-/* ======================= 科研项目 ======================= */
-.project {
-  background: var(--bg-soft);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1rem 1.2rem;
-  margin-bottom: 1rem;
-}
+/* ======================= 科研项目:与学术服务同构的朴素条目,不做卡片 ======================= */
+.project { margin-bottom: 1.6rem; }
 
 .project-head {
   display: flex;
@@ -297,7 +276,7 @@ h2 {
 }
 
 .project-role {
-  color: var(--accent);
+  color: var(--text-soft);
   font-size: 0.88rem;
   margin: 0.25rem 0 0.5rem;
 }
