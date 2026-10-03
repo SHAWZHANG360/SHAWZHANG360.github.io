@@ -153,6 +153,17 @@ h2 {
   font-size: 1.02rem;
 }
 
+.affiliation { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.9rem; }
+.affiliation .subtitle { margin: 0; }
+.affiliation-logo { flex-shrink: 0; }
+.affiliation-logo img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  background: #fff;
+  border-radius: 50%;
+}
+
 .contact-line {
   display: flex;
   flex-wrap: wrap;
@@ -328,6 +339,7 @@ footer {
 /* ======================= 响应式 ======================= */
 @media (max-width: 640px) {
   .hero { flex-direction: column-reverse; text-align: center; }
+  .affiliation { justify-content: center; text-align: left; }
   .contact-line { justify-content: center; }
   .hero h1 { font-size: 1.8rem; }
   .news-date { width: 4rem; }
